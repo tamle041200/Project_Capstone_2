@@ -1,6 +1,6 @@
 class Services {
   getListProductAPI() {
-    const url = "https://6a183c621878294b597ca1e4.mockapi.io/api/Product";
+    const url = "https://6a183c621878294b597ca1e4.mockapi.io/api/Product_phone";
 
     const promise = axios({
       url: url,
