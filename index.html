@@ -3,10 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=a, initial-scale=1.0" />
-    <title>Document</title>
+    <title>HOME</title>
+    <!-- Font awsome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- flowbite -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <a href="./admin/admin.html"></a>
-    <a href="./user/user.html"></a>
+    <div
+      class="flex justify-center items-center gap-10 h-screen bg-[url('./img/bg.png')] bg-cover bg-center text-slate-300"
+    >
+      <a
+        href="./admin/admin.html"
+        class="w-72 h-72 rounded-3xl flex flex-col justify-center items-center hover:scale-105 transition"
+        ><i class="fa-solid fa-users-gear text-8xl mb-6"></i>
+        <h2 class="text-4xl font-black">ADMIN</h2></a
+      >
+      <a
+        href="./user/user.html"
+        class="w-72 h-72 rounded-3xl flex flex-col justify-center items-center hover:scale-105 transition"
+        ><i class="fa-solid fa-cart-shopping text-8xl mb-6"></i>
+        <h2 class="text-4xl font-black">STORE</h2></a
+      >
+    </div>
+    <!-- flowbite -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+    <!-- tailwind -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script type="module" src="./admin.js"></script>
   </body>
 </html>
