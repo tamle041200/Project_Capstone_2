@@ -23,16 +23,5 @@ class Validation {
     getId(divId).style.display = "block";
     return false;
   }
-  checkNumber(value, divId, mess) {
-    let number = "/^[0-9]+$/";
-    if (value.match(number)) {
-      getId(divId).innerHTML = "";
-      getId(divId).style.display = "none";
-      return true;
-    }
-    getId(divId).innerHTML = mess;
-    getId(divId).style.display = "block";
-    return false;
-  }
 }
 export default Validation;

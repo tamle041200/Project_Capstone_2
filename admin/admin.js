@@ -176,10 +176,8 @@ function validationForm(
   img,
 ) {
   let isValid = true;
-  isValid = validation.checkEmpty(name, "divName", "Vui Lòng Nhập User");
-  isValid &=
-    validation.checkEmpty(price, "divPrice", "Vui Lòng Nhập Giá") &&
-    validation.checkNumber(price, "divPrice", "Vui Lòng Nhập Số");
+  isValid = validation.checkEmpty(name, "divName", "Vui Lòng Nhập Name");
+  isValid &= validation.checkEmpty(price, "divPrice", "Vui Lòng Nhập Giá");
   isValid &= validation.checkEmpty(
     screen,
     "divScreen",
