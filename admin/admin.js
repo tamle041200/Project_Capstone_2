@@ -23,14 +23,16 @@ function renderUI(data) {
   for (let i = 0; i < data.length; i++) {
     const product = data[i];
     content += `<tr>
-    <td>${i + 1}</td>
-    <td>${product.name}</td>
-    <td>${product.price}</td>
-    <td><img src = ${product.img} width="50" alt = "${product.name}"></td>
-    <td>${product.desc}</td>
-    <td>
+    <td class="p-4 text-center font-medium text-slate-500 ">${i + 1}</td>
+    <td class="p-4 font-semibold text-slate-900">${product.name}</td>
+    <td class="p-4 font-bold text-indigo-600"">${product.price}$</td>
+    <td class="p-4 text-center"><img src = ${product.img} width="50" alt = "${product.name}"></td>
+    <td class="p-4 max-w-xs text-slate-500 leading-relaxed">${product.desc}</td>
+    <td class="p-4 text-center">
+    <div class="flex items-center justify-center gap-2">
     <button class="border rounded-lg p-1 bg-red-500 text-white" onclick="handleDelete(${product.id})">Delete</button>
     <button class="border rounded-lg p-1 bg-green-500 text-white"  onclick="handleEdit(${product.id})">Edit</button>
+    </div>
     </td>
     </tr>`;
   }
@@ -197,13 +199,15 @@ function validationForm(
   isValid &= validation.checkEmpty(img, "divImg", "Vui Lòng Không Để Trống");
   return isValid;
 }
-document.getElementById("filterBrand").addEventListener("change", function () {
+//Nút bấm chung
+function handleFilter() {
   const type = document.getElementById("filterBrand").value;
+  const sort = document.getElementById("sortPrice").value;
   const arrFilter = filter.filterList(type);
-  renderUI(arrFilter);
-});
-document.getElementById("sortPrice").addEventListener("change", function () {
-  const type = document.getElementById("sortPrice").value;
-  const arrSort = filter.sortPrice(type);
+  const arrSort = filter.sortPrice(sort, arrFilter);
   renderUI(arrSort);
-});
+}
+// Nút chọn brand
+document.getElementById("filterBrand").addEventListener("change", handleFilter);
+// Nút sắp xếp giá tiền
+document.getElementById("sortPrice").addEventListener("change", handleFilter);
