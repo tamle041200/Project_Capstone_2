@@ -17,8 +17,8 @@ class Filter {
     }
     return arrFilter;
   }
-  sortPrice(type) {
-    const arrSort = [...this.arrList];
+  sortPrice(type, arr) {
+    const arrSort = [...arr];
 
     if (type === "tang") {
       arrSort.sort((a, b) => a.price - b.price);
