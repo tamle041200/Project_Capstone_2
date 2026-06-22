@@ -3,19 +3,14 @@ import ProductUser from "./user.js";
 
 import CartItem from "./cart.js";
 
-
-
-
 const services = new Services();
 
-
-
 function renderProduct(data) {
-    let content = "";
+  let content = "";
 
-    for (let i = 0; i < data.length; i++) {
-        const product = data[i];
-        content += `
+  for (let i = 0; i < data.length; i++) {
+    const product = data[i];
+    content += `
         <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-purple-500/30 hover:-translate-y-1 transition-all duration-300">
             
             
@@ -43,73 +38,72 @@ function renderProduct(data) {
             </div>
         </div>
         `;
-    }
+  }
 
-    document.getElementById("productList").innerHTML = content;
+  document.getElementById("productList").innerHTML = content;
 }
 
 let cart = [];
 let allProduct = [];
 
 function getListProduct() {
-    const promise = services.getListProductAPI();
+  const promise = services.getListProductAPI();
 
-    promise
-        .then(function (result) {
-            const data = result.data;
-            allProduct = data;
-            renderProduct(data);
-        })
-        .catch(function (error) {
-            console.log(error);
-
-        });
+  promise
+    .then(function (result) {
+      const data = result.data;
+      allProduct = data;
+      renderProduct(data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 getListProduct();
 
 window.themVaoGio = themVaoGio;
 function themVaoGio(id) {
-    const product = allProduct.find(item => item.id === id);
+  const product = allProduct.find((item) => item.id === id);
 
-    const cartItem = cart.find(item => item.product.id === id);
+  const cartItem = cart.find((item) => item.product.id === id);
 
-    if (cartItem) {
-        cartItem.quantity += 1;
-    } else {
-        const newItem = new CartItem(product, 1);
-        cart.push(newItem);
-    }
+  if (cartItem) {
+    cartItem.quantity += 1;
+  } else {
+    const newItem = new CartItem(product, 1);
+    cart.push(newItem);
+  }
 
-    renderCart();
-    saveCart();
+  renderCart();
+  saveCart();
 }
 
 document.getElementById("filterType").onchange = function (e) {
-    const type = e.target.value;
+  const type = e.target.value;
 
-    if (type === "all") {
-        renderProduct(allProduct);
-        return;
-    }
+  if (type === "all") {
+    renderProduct(allProduct);
+    return;
+  }
 
-    const ketQua = allProduct.filter(function (item) {
-        return item.type.toLowerCase() === type.toLowerCase();
-    });
+  const ketQua = allProduct.filter(function (item) {
+    return item.type.toLowerCase() === type.toLowerCase();
+  });
 
-    renderProduct(ketQua);
-}
+  renderProduct(ketQua);
+};
 
 function renderCart() {
-    let content = "";
+  let content = "";
 
-    if (cart.length === 0) {
-        content = `<tr><td colspan="5" class="text-center text-gray-500 py-6">Giỏ hàng trống</td></tr>`;
-    }
+  if (cart.length === 0) {
+    content = `<tr><td colspan="5" class="text-center text-gray-500 py-6">Giỏ hàng trống</td></tr>`;
+  }
 
-    for (let i = 0; i < cart.length; i++) {
-        const item = cart[i];
-        content += `
+  for (let i = 0; i < cart.length; i++) {
+    const item = cart[i];
+    content += `
         <tr class="border-b border-gray-700">
             <td class="py-3 flex items-center gap-3">
                 <img src="${item.product.img}" class="w-12 h-12 object-contain bg-white rounded-lg p-1" />
@@ -133,61 +127,59 @@ function renderCart() {
                 </button>
             </td>
         </tr>`;
-    }
+  }
 
-    document.getElementById("cartTable").innerHTML = content;
-    tongTien();
+  document.getElementById("cartTable").innerHTML = content;
+  tongTien();
 }
 
 window.tangSoLuong = tangSoLuong;
 window.giamSoLuong = giamSoLuong;
 
 function tangSoLuong(id) {
-    const cartItem = cart.find(function (item) {
-        return item.product.id === id;
-    });
+  const cartItem = cart.find(function (item) {
+    return item.product.id === id;
+  });
 
-    cartItem.quantity = cartItem.quantity + 1;
-    renderCart();
-    saveCart();
+  cartItem.quantity = cartItem.quantity + 1;
+  renderCart();
+  saveCart();
 }
 
 function giamSoLuong(id) {
-    const cartItem = cart.find(function (item) {
-        return item.product.id === id;
-    });
+  const cartItem = cart.find(function (item) {
+    return item.product.id === id;
+  });
 
-    if (cartItem.quantity > 1) {
-        cartItem.quantity = cartItem.quantity - 1;
-    }
+  if (cartItem.quantity > 1) {
+    cartItem.quantity = cartItem.quantity - 1;
+  }
 
-    renderCart();
-    saveCart();
+  renderCart();
+  saveCart();
 }
 
 function tongTien() {
-    let tongTien = 0;
-    for (let i = 0; i < cart.length; i++) {
-        const item = cart[i];
-        tongTien += item.product.price * item.quantity;
-    }
+  let tongTien = 0;
+  for (let i = 0; i < cart.length; i++) {
+    const item = cart[i];
+    tongTien += item.product.price * item.quantity;
+  }
 
-    document.getElementById("tongTien").innerText = tongTien;
-
-
+  document.getElementById("tongTien").innerText = tongTien;
 }
 
 function saveCart() {
-    const dataString = JSON.stringify(cart);
-    localStorage.setItem("CART", dataString);
+  const dataString = JSON.stringify(cart);
+  localStorage.setItem("CART", dataString);
 }
 
 function loadCart() {
-    const dataString = localStorage.getItem("CART");
-    if (dataString) {
-        cart = JSON.parse(dataString);
-        renderCart();
-    }
+  const dataString = localStorage.getItem("CART");
+  if (dataString) {
+    cart = JSON.parse(dataString);
+    renderCart();
+  }
 }
 
 getListProduct();
@@ -196,24 +188,24 @@ loadCart();
 window.thanhToan = thanhToan;
 
 function thanhToan() {
-    cart = [];
-    renderCart();
-    saveCart();
+  cart = [];
+  renderCart();
+  saveCart();
 
-    alert("Thanh toán thành công");
+  alert("Thanh toán thành công");
 }
 
 window.deleteProduct = deleteProduct;
 
 function deleteProduct(id) {
-    const index = cart.findIndex(function (item) {
-        return item.product.id === id;
-    });
+  const index = cart.findIndex(function (item) {
+    return item.product.id === id;
+  });
 
-    if (index !== -1) {
-        cart.splice(index, 1);
-    }
+  if (index !== -1) {
+    cart.splice(index, 1);
+  }
 
-    renderCart();
-    saveCart();
+  renderCart();
+  saveCart();
 }
